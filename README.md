@@ -31,11 +31,10 @@ For further reading related to this lab, the student should visit
 The following applications are assumed to be installed and configured on your system:
 
 * Visual Studio (configured to build C++ applications)
-  * 
+  - Developer Powershell for VS 2022
 * CMake
 * Git
 * GitHub CLI
-* Developer Powershell for VS 2022
 
 ## Getting Started
 
