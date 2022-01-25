@@ -60,10 +60,10 @@ _You may have to type the `q` character to get back to the command line prompt a
 This lab consists of three tasks, i.e., use
 
 1. the Visual Studio command line development tools to build targets from C++ source files and dependencies.
-1. `make` to dictate the build process.
+1. `nmake` to dictate the build process.
 1. `cmake` to dictate the build process.
 
-### Task 1: Compiling C++ Source Code
+### Task 1: Compiling C++ Source Code with `CL`
 
 * Organizing our code
 * Compiling (things the compiler needs to know)
@@ -199,7 +199,7 @@ Copyright (C) Microsoft Corporation.  All rights reserved.
 PS C:\Path\To\Your\lab0b\src> ls
 
 
-    Directory: C:\UPath\To\Your\lab0b\src
+    Directory: C:\Path\To\Your\lab0b\src
 
 
 Mode                 LastWriteTime         Length Name
@@ -222,7 +222,106 @@ Use what you just learned to build and execute the following targets:
 
 1. `lab0b-demo.exe` built with the `demo.cpp` source file (which has similar dependencies as `main.cpp`)
 
-### Task 2 - Using make
+### Task 2 - Using `nmake` to build targets
+
+Recall what it takes to build an executable built by just a simple file source file and local header file:
+
+```Powershell
+PS C:\Path\To\Your\lab0b\src> CL /Fo.\lab0b.obj /EHsc /I ..\include .\main.cpp /link /out:lab0b.exe
+```
+
+All these command line switches are confusing, not easy to remember, and prone to user input error. It would be nice if we could capture this command, or the steps that lead to its final product, in a single file and issue one simple command to build some target. Guess what. There is.
+
+1. Create a new file named `Makefile` in the `C:\Path\To\Your\lab0b\src`:
+
+   ```Powershell
+   PS C:\Path\To\Your\lab0b\src> notepad .\Makefile
+   ```
+
+   This will launch the Notepad editor. 
+   
+1. Enter the following, using the tab character for indentation:
+
+   ```Makefile
+   lab0b.exe: lab0b.obj
+        LINK lab0b.obj
+   lab0b.obj: main.cpp
+        CL /Fo.\lab0b.obj /EHsc /I ..\include -c main.cpp
+   ```
+
+   when you are done, save your file and close Notepad. Because Notepad automatically adds the `txt` extension to files it creates, we need to rename `Makefile.txt` to `Makefile`. This is done with the `mv` command (move):
+
+   ```Powershell
+   PS C:\Path\To\Your\lab0b\src> mv Makefile.txt Makefile
+   ```
+
+1. Next run `nmake`:
+
+   ```Powershell
+   PS C:\Path\To\Your\lab0b\src> nmake
+
+   Microsoft (R) Program Maintenance Utility Version 14.30.30709.0
+   Copyright (C) Microsoft Corporation.  All rights reserved.
+
+            CL /Fo.\lab0b.obj /EHsc /I ..\include -c main.cpp
+   Microsoft (R) C/C++ Optimizing Compiler Version 19.30.30709 for x86
+   Copyright (C) Microsoft Corporation.  All rights reserved.
+
+   main.cpp
+            LINK lab0b.obj
+   Microsoft (R) Incremental Linker Version 14.30.30709.0
+   Copyright (C) Microsoft Corporation.  All rights reserved.
+
+   PS C:\Path\To\Your\lab0b\src> ls
+
+            Directory: C:\Path\To\Your\lab0b\src
+
+
+   Mode                 LastWriteTime         Length Name
+   ----                 -------------         ------ ----
+   -a----         1/24/2022   9:54 PM           1168 demo.cpp
+   -a----         1/24/2022   8:39 PM              0 demo_data.txt
+   -a----         1/24/2022  11:34 PM         199168 lab0b.exe
+   -a----         1/24/2022  11:34 PM         167290 lab0b.obj
+   -a----         1/24/2022   9:54 PM           1168 main.cpp
+   -a----         1/24/2022   8:39 PM              0 main_data.txt
+   -a----         1/24/2022  11:14 PM            114 Makefile
+   -a----         1/24/2022   8:39 PM              0 test_data.txt
+
+
+PS C:\Path\To\Your\lab0b\src>
+```
+
+As you can see, our `lab0b` object files and targets were created. By creating this `Makefile`, we've reduced our effort to creating targets to issuing just a single command: `nmake`
+
+1. Modify the `Makefile` to prescribe the construction for the `lab0b-demo.exe` target like you did with `CL` in Part 1.
+1. Test your new target construction plan by running `nmake` on a particular target:
+
+   ```Powershell
+   PS C:\Path\To\Your\lab0b\src> nmake lab0b-demo.exe
+
+   Microsoft (R) Program Maintenance Utility Version 14.30.30709.0
+   Copyright (C) Microsoft Corporation.  All rights reserved.
+
+            CL /Fo.\lab0b-demo.obj /EHsc /I ..\include -c demo.cpp
+   Microsoft (R) C/C++ Optimizing Compiler Version 19.30.30709 for x86
+   Copyright (C) Microsoft Corporation.  All rights reserved.
+
+    demo.cpp
+            LINK lab0b-demo.obj
+   Microsoft (R) Incremental Linker Version 14.30.30709.0
+   Copyright (C) Microsoft Corporation.  All rights reserved.
+
+   PS C:\Path\To\Your\lab0b\src>
+   ```
+
+   If modified correctly, then the output above should be similar to your output.
+
+1. Finally, note that the first prescription planned in the `Makefile` is carried out now when `nmake` is run without specifying a target. That is, just run `nmake` by itself and note the target that's built.
+1. Stage your `Makefile` for commit by typing `git add Makefile`.
+1. Commit your new file by typing `git commit -m"Add Makefile."`
+1. Push your changes to GitHub. If this is the first time you're pushing (i.e., publishing) the `develop` branch, then type `git push -u origin develop`, otherwise, just type `git push`
+
 
 ### Task 3 - Using cmake
 
