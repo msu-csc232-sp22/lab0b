@@ -15,7 +15,7 @@
 
 int main(int argc, char* argv[])
 {
-	std::cout << "Hello, Lab01 Demo Target!" << std::endl;
+	std::cout << "Hello, Lab0b Demo Target!" << std::endl;
 	// An input file to process
 	std::string input_file;
 
