@@ -1,14 +1,18 @@
 # LAB0B - Tools of the Trade (Development Tools)
 
-_A quick blurb or sub-title text_
+_This is another **non-graded** lab whose sole purpose is to familiarize the student with a number of development tools that shall be employed, implicitly or explicitly, throughout the semester, to build and execute targets based on C++ source code._
 
 ## Background
 
-Before proceeding with this lab, the student should take the time to read
+For further reading related to this lab, the student should visit
 
-* this
-* that 
-* and the other thing
+
+* [MSVC Compiler Command-Line Syntax](https://docs.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax?view=msvc-170)
+* [MSVC Compiler Options (by Category)](https://docs.microsoft.com/en-us/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170)
+* [MSVC Linker Reference](https://docs.microsoft.com/en-us/cpp/build/reference/linking?view=msvc-170)
+* [MSVC Linker Options](https://docs.microsoft.com/en-us/cpp/build/reference/linker-options?view=msvc-170)
+* [NMake Reference](https://docs.microsoft.com/en-us/cpp/build/reference/nmake-reference?view=msvc-170)
+* [CMake](https://cmake.org/cmake/help/latest/index.html)
 
 ## Objectives
 
