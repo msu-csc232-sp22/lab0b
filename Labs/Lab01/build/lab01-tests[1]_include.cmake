@@ -1,5 +1,0 @@
-if(EXISTS "/mnt/c/Users/jrd2112/source/repos/CMakeProject1/Labs/Lab01/build/lab01-tests[1]_tests.cmake")
-  include("/mnt/c/Users/jrd2112/source/repos/CMakeProject1/Labs/Lab01/build/lab01-tests[1]_tests.cmake")
-else()
-  add_test(lab01-tests_NOT_BUILT lab01-tests_NOT_BUILT)
-endif()
