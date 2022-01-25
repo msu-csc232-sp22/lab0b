@@ -325,6 +325,133 @@ As you can see, our `lab0b` object files and targets were created. By creating t
 
 ### Task 3 - Using cmake
 
+For this final task, let's do two things before using `cmake`
+
+1. Let's navigate to the "root" of our repository (i.e. up one directory): `cd ..` You should be in the `C:\Path\To\Your\lab0b` folder now.
+1. Let's delete a folder named `build` (if it exists): `del .\build` (Answer `A` to delete all files).
+1. Notice you have a file named `CMakeLists.txt` in this root folder. This is a file used by `cmake` in much the same way the `Makefile` was used by `nmake` in Task 2 that you just completed.
+
+We're going to conduct what's known as an "out of source" build using `cmake`. This simply means will put all the files needed to build our targets in a folder "outside" of the source folder(s) and outside of the location of the `CMakeLists.txt` file itself. As you'll soon see, `cmake` uses `nmake`, which is why we studied `nmake` in the previous task. For our purposes today, we need to give `cmake` three pieces of information:
+
+1. The location of the `CMakeLists.txt` used to guide its operation. This is done using the `-S` switch (think of "S" as standing for "source")
+1. The location of where to place the files it needs to build targets. This is done using the `-B` switch (think of "B" as standing for "build")
+1. The "generator" to use which identifies the types of files it creates and places in your specified build folder. This is done using the `-G` switch (think of "G" as standing for "generator").
+
+    ```Powershell
+    PS C:\Path\To\Your\lab0b> cmake -S . -B .\build -G "NMake Makefiles"
+    -- The C compiler identification is MSVC 19.30.30709.0
+    -- The CXX compiler identification is MSVC 19.30.30709.0
+    -- Detecting C compiler ABI info
+    -- Detecting C compiler ABI info - done
+    -- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.30.30705/bin/Hostx86/x86/cl.exe - skipped
+    -- Detecting C compile features
+    -- Detecting C compile features - done
+    -- Detecting CXX compiler ABI info
+    -- Detecting CXX compiler ABI info - done
+    -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.30.30705/bin/Hostx86/x86/cl.exe - skipped
+    -- Detecting CXX compile features
+    -- Detecting CXX compile features - done
+    -- Found Python: C:/Users/jdaehn/AppData/Local/Programs/Python/Python310/python.exe (found version "3.10.2") found components: Interpreter
+    -- Looking for pthread.h
+    -- Looking for pthread.h - not found
+    -- Found Threads: TRUE
+    -- Configuring done
+    -- Generating done
+    -- Build files have been written to: C:/Users/jdaehn/source/repos/lab0b/build
+    PS C:\Path\To\Your\lab0b> cd .\build\
+    PS C:\Path\To\Your\lab0b\build> ls
+
+
+        Directory: C:\Path\To\Your\lab0b\build
+
+
+    Mode                 LastWriteTime         Length Name
+    ----                 -------------         ------ ----
+    d-----         1/25/2022  12:02 AM                bin
+    d-----         1/25/2022  12:02 AM                CMakeFiles
+    d-----         1/25/2022  12:02 AM                lib
+    d-----         1/25/2022  12:02 AM                _deps
+    -a----         1/25/2022  12:02 AM          22271 CMakeCache.txt
+    -a----         1/25/2022  12:02 AM           1645 cmake_install.cmake
+    -a----         1/25/2022  12:02 AM            410 CTestTestfile.cmake
+    -a----         1/25/2022  12:02 AM            238 lab0b-tests[1]_include.cmake
+    -a----         1/25/2022  12:02 AM          12429 Makefile
+
+
+    C:\Path\To\Your\lab0b>
+    ```
+
+1. Notice the `build` folder (a) was created and (b) it contains a `Makefile` in it. Navigate into the `build` folder and run `nmake`:
+
+   ```Powershell
+   PS C:\Path\To\Your\lab0b\build> nmake
+   
+   Microsoft (R) Program Maintenance Utility Version 14.30.30709.0
+   Copyright (C) Microsoft Corporation.  All rights reserved.
+
+   [  5%] Building CXX object CMakeFiles/lab0b.dir/src/main.cpp.obj
+   main.cpp
+   [ 11%] Linking CXX executable lab0b.exe
+   [ 11%] Built target lab0b
+   [ 17%] Building CXX object CMakeFiles/lab0b-demo.dir/src/demo.cpp.obj
+   demo.cpp
+   [ 23%] Linking CXX executable lab0b-demo.exe
+   [ 23%] Built target lab0b-demo
+   [ 29%] Building CXX object _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj
+   gtest-all.cc
+   [ 35%] Linking CXX static library ..\..\..\lib\gtestd.lib
+   [ 35%] Built target gtest
+   [ 41%] Building CXX object _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj
+   gtest_main.cc
+   [ 47%] Linking CXX static library ..\..\..\lib\gtest_maind.lib
+   [ 47%] Built target gtest_main
+   [ 52%] Building CXX object CMakeFiles/lab0b-tests.dir/test/test.cpp.obj
+   test.cpp
+   [ 58%] Linking CXX executable lab0b-tests.exe
+   [ 58%] Built target lab0b-tests
+   [ 64%] Building CXX object _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/__/googletest/src/gtest-all.cc.obj
+   gtest-all.cc
+   [ 70%] Building CXX object _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj
+   gmock-all.cc
+   [ 76%] Linking CXX static library ..\..\..\lib\gmockd.lib
+   [ 76%] Built target gmock
+   [ 82%] Building CXX object _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.obj
+   gtest-all.cc
+   [ 88%] Building CXX object _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.obj
+   gmock-all.cc
+   [ 94%] Building CXX object _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj
+   gmock_main.cc
+   [100%] Linking CXX static library ..\..\..\lib\gmock_maind.lib
+   [100%] Built target gmock_main
+   PS C:\Path\To\Your\lab0b\build>
+   ```
+
+1. Notice that three targets were built by typing `ls *.exe`.
+1. Run each of the targets:
+   
+   ```Powershell
+   PS C:\Path\To\Your\lab0b\build>.\lab0b.exe
+   Hello, Lab0b Main Target!
+   Successfully opened "main_data.txt"... will now close this file
+   PS C:\Path\To\Your\lab0b\build>.\lab0b-demo.exe
+   Hello, Lab0b Demo Target!
+   Successfully opened "demo_data.txt"... will now close this file
+   PS C:\Path\To\Your\lab0b\build>.\lab0b-tests.exe
+   Running main() from C:\Users\jdaehn\source\repos\lab0b\build\_deps\googletest-src\googletest\src\gtest_main.cc
+   [==========] Running 1 test from 1 test suite.
+   [----------] Global test environment set-up.
+   [----------] 1 test from HelloTest
+   [ RUN      ] HelloTest.BasicAssertions
+   [       OK ] HelloTest.BasicAssertions (0 ms)
+   [----------] 1 test from HelloTest (1 ms total)
+
+   [----------] Global test environment tear-down
+   [==========] 1 test from 1 test suite ran. (7 ms total)
+   [  PASSED  ] 1 test.
+   ```
+
+   That last (test) target was a little more complex to build, but as we can see, `cmake` made it a breeze. This test target can be used (in general with labs and homework assignments going forward) to determine your progress on any given assignment. As you can also infer from its output, one test was executed and it passed.
+
 ## Submission Details
 
 Before submitting your assignment, be sure you have pushed all your changes to GitHub. If this is the first time you're pushing your changes, the push command will look like:
