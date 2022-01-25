@@ -292,8 +292,8 @@ All these command line switches are confusing, not easy to remember, and prone t
    -a----         1/24/2022   8:39 PM              0 test_data.txt
 
 
-PS C:\Path\To\Your\lab0b\src>
-```
+   PS C:\Path\To\Your\lab0b\src>
+   ```
 
 As you can see, our `lab0b` object files and targets were created. By creating this `Makefile`, we've reduced our effort to creating targets to issuing just a single command: `nmake`
 
