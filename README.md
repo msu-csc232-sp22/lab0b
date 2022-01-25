@@ -31,15 +31,14 @@ For further reading related to this lab, the student should visit
 The following applications are assumed to be installed and configured on your system:
 
 * Visual Studio (configured to build C++ applications)
-  * 
+  - Developer Powershell for VS 2022
 * CMake
 * Git
 * GitHub CLI
-* Developer Powershell for VS 2022
 
 ## Getting Started
 
-After accepting this assignment with the provided [GitHub Classroom Assignment link](https://classroom.github.com/fill-me-in), clone this repository. If you have cloned the repository from the command line prompt, navigate into the newly created directory
+After accepting this assignment with the provided [GitHub Classroom Assignment link](https://classroom.github.com/a/B2LWXZrT), clone this repository. If you have cloned the repository from the command line prompt, navigate into the newly created directory
 
 ```bash
 cd labn-github-username
