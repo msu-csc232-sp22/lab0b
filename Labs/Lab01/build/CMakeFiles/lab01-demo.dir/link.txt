@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/lab01-demo.dir/src/demo.cpp.o  -o lab01-demo 
